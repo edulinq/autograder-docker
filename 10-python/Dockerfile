@@ -1,6 +1,6 @@
 FROM autograder.base
 
-RUN pip3 install autograder-py==0.1.0
+RUN pip3 install autograder-py==0.1.2
 
 COPY scripts /autograder/scripts
 
