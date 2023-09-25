@@ -1,8 +1,9 @@
 FROM autograder.base
 
-RUN pip3 install autograder-py==0.1.2
-
+COPY requirements.txt /autograder/
 COPY scripts /autograder/scripts
+
+RUN pip3 install -r /autograder/requirements.txt
 
 # TODO(eriq): Entrypoint?
 
