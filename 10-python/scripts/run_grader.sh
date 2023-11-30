@@ -22,17 +22,15 @@ function main() {
 
     cd ${BASE_DIR}
 
-    python3 -m autograder.cli.pre-docker-grading
+    python3 -m autograder.cli.grading.pre-docker
     if [[ $? -ne 0 ]] ; then
         echo "Failed to run docker pre-grading prep."
         exit 2
     fi
 
-    python3 -m autograder.cli.grade-submission \
+    python3 -m autograder.cli.grading.grade-dir \
         --grader "${GRADER_PATH}" \
-        --inputdir "${INPUT_DIR}" \
-        --outputdir "${OUTPUT_DIR}" \
-        --workdir "${WORK_DIR}" \
+        --dir "${BASE_DIR}" \
         --outpath "${OUTPUT_PATH}"
     local returnValue=$?
 
