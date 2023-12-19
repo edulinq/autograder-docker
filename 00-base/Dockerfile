@@ -3,7 +3,7 @@ FROM ubuntu:22.04@sha256:83f0c2a8d6f266d687d55b5cb1cb2201148eb7ac449e4202d9646b9
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 
-RUN apt-get -y install \
+RUN apt-get install -y \
     locales \
     tzdata
 
@@ -21,9 +21,13 @@ RUN apt-get install -y \
     vim \
     wget
 
-RUN mkdir -p /autograder/build
 RUN mkdir -p /autograder/work
 RUN mkdir -p /autograder/submission
 RUN mkdir -p /autograder/output
+RUN mkdir -p /autograder/scripts
+
+COPY scripts/* /autograder/scripts/
 
 WORKDIR /autograder/work
+
+ENTRYPOINT ["/bin/bash", "/autograder/scripts/main.sh"]
