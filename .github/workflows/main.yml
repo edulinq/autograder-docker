@@ -32,7 +32,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./00-base
           file: 00-base/Dockerfile
           push: false
           tags: eriqaugustine/autograder-base:latest
