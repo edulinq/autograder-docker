@@ -1,4 +1,4 @@
-FROM autograder.base
+FROM eriqaugustine/autograder.base
 
 COPY requirements.txt /autograder/
 COPY scripts /autograder/scripts
