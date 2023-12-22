@@ -29,10 +29,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build - Base
         uses: docker/build-push-action@v5
         with:
           context: ./00-base
           file: 00-base/Dockerfile
           push: false
-          tags: eriqaugustine/autograder-base:latest
+          tags: eriqaugustine/autograder.base:latest
+
+      - name: Build - Python
+        uses: docker/build-push-action@v5
+        with:
+          context: ./10-python
+          file: 10-python/Dockerfile
+          push: false
+          tags: eriqaugustine/autograder.python:latest
