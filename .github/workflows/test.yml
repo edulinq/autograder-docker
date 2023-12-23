@@ -1,14 +1,8 @@
 name: Main
 
 on:
-  workflow_run:
-    workflows:
-      - Main
-    types:
-      - completed
-    branches:
-      - main
-      - ci-work
+  - push
+  - pull_request
 
 jobs:
   main:
@@ -35,7 +29,8 @@ jobs:
         with:
           context: ./00-base
           file: 00-base/Dockerfile
-          push: true
+          push: false
+          load: true
           tags: eriqaugustine/autograder.base:latest
 
       - name: Build - Python
@@ -43,5 +38,6 @@ jobs:
         with:
           context: ./10-python
           file: 10-python/Dockerfile
-          push: true
+          push: false
+          load: true
           tags: eriqaugustine/autograder.python:latest
