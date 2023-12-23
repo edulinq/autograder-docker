@@ -1,9 +1,9 @@
-name: Main
+name: Latest Deploy
 
 on:
   workflow_run:
     workflows:
-      - Main
+      - Test
     types:
       - completed
     branches:
