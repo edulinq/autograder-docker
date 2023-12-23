@@ -37,6 +37,9 @@ jobs:
           push: false
           tags: eriqaugustine/autograder.base:latest
 
+      - name: TEST - List Images
+        run: docker images -a
+
       - name: Build - Python
         uses: docker/build-push-action@v5
         with:
