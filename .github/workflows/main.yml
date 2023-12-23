@@ -35,6 +35,7 @@ jobs:
           context: ./00-base
           file: 00-base/Dockerfile
           push: false
+          load: true
           tags: eriqaugustine/autograder.base:latest
 
       - name: TEST - List Images
