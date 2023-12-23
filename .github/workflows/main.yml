@@ -52,4 +52,5 @@ jobs:
           context: ./10-python
           file: 10-python/Dockerfile
           push: false
+          load: true
           tags: eriqaugustine/autograder.python:latest
