@@ -6,6 +6,7 @@
 readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 readonly BASE_IMAGE_NAME='autograder'
+readonly IMAGE_REPO='eriqaugustine'
 
 function main() {
     trap exit SIGINT
@@ -16,7 +17,7 @@ function main() {
         local subImageName=$(basename "${buildDir}" | sed 's/^[0-9]\+-//')
 
         echo "Building '${BASE_IMAGE_NAME}.${subImageName}' ..."
-        docker build --no-cache --tag "${BASE_IMAGE_NAME}.${subImageName}" --file "${dockerfile}" "${buildDir}" $@
+        docker build --no-cache --tag "${IMAGE_REPO}/${BASE_IMAGE_NAME}.${subImageName}" --file "${dockerfile}" "${buildDir}" $@
     done
 
     exit 0
