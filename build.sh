@@ -6,7 +6,7 @@
 readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 readonly BASE_IMAGE_NAME='autograder'
-readonly IMAGE_REPO='eriqaugustine'
+readonly IMAGE_REPO='edulinq'
 
 function main() {
     trap exit SIGINT

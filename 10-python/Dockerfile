@@ -1,4 +1,4 @@
-FROM eriqaugustine/autograder.base
+FROM edulinq/autograder.base
 
 COPY requirements.txt /autograder/
 COPY scripts /autograder/scripts

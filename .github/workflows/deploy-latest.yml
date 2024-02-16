@@ -36,7 +36,7 @@ jobs:
           context: ./00-base
           file: 00-base/Dockerfile
           push: true
-          tags: eriqaugustine/autograder.base:latest
+          tags: edulinq/autograder.base:latest
 
       - name: Build - Python
         uses: docker/build-push-action@v5
@@ -44,4 +44,4 @@ jobs:
           context: ./10-python
           file: 10-python/Dockerfile
           push: true
-          tags: eriqaugustine/autograder.python:latest
+          tags: edulinq/autograder.python:latest
