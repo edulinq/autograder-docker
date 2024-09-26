@@ -1,1 +1,1 @@
-autograder-py>=0.4.5
+autograder-py>=0.5.2
