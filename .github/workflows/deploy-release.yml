@@ -14,6 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -23,18 +26,38 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build - Base
+      - name: Build - Base - Ubuntu
         uses: docker/build-push-action@v6
         with:
-          context: ./00-base
-          file: 00-base/Dockerfile
+          context: ./00-base/ubuntu
+          file: 00-base/ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: edulinq/grader.base:${{ github.ref_name }}
+          tags: edulinq/grader.base:${{ github.ref_name }},edulinq/grader.base-ubuntu:${{ github.ref_name }},edulinq/grader.base-ubuntu22.04:${{ github.ref_name }}
 
-      - name: Build - Python
+      - name: Build - Base - Alpine
         uses: docker/build-push-action@v6
         with:
-          context: ./10-python
-          file: 10-python/Dockerfile
+          context: ./00-base/alpine
+          file: 00-base/alpine/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: edulinq/autograder.python:${{ github.ref_name }}
+          tags: edulinq/grader.base-alpine:${{ github.ref_name }},edulinq/grader.base-alpine3.20.3:${{ github.ref_name }}
+
+      - name: Build - Python - Ubuntu
+        uses: docker/build-push-action@v6
+        with:
+          context: ./10-python/ubuntu
+          file: 10-python/ubuntu/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: edulinq/grader.python:${{ github.ref_name }},edulinq/grader.python-ubuntu:${{ github.ref_name }},edulinq/grader.python-ubuntu22.04:${{ github.ref_name }}
+
+      - name: Build - Python - Alpine
+        uses: docker/build-push-action@v6
+        with:
+          context: ./10-python/alpine
+          file: 10-python/alpine/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: edulinq/grader.python-alpine:${{ github.ref_name }},edulinq/grader.python-alpine3.20.3:${{ github.ref_name }}
