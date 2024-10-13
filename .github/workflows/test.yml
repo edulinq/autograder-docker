@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -24,20 +27,50 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build - Base
-        uses: docker/build-push-action@v5
+      - name: Build - Base - Ubuntu
+        uses: docker/build-push-action@v6
         with:
-          context: ./00-base
-          file: 00-base/Dockerfile
+          context: ./00-base/ubuntu
+          file: 00-base/ubuntu/Dockerfile
+          platforms: linux/amd64
           push: false
           load: true
-          tags: edulinq/autograder.base:latest
+          build-args: |
+            BASE_TAG=test
+          tags: edulinq/grader.base-ubuntu:test
 
-      - name: Build - Python
-        uses: docker/build-push-action@v5
+      - name: Build - Base - Alpine
+        uses: docker/build-push-action@v6
         with:
-          context: ./10-python
-          file: 10-python/Dockerfile
+          context: ./00-base/alpine
+          file: 00-base/alpine/Dockerfile
+          platforms: linux/amd64
           push: false
           load: true
-          tags: edulinq/autograder.python:latest
+          build-args: |
+            BASE_TAG=test
+          tags: edulinq/grader.base-alpine:test
+
+      - name: Build - Python - Ubuntu
+        uses: docker/build-push-action@v6
+        with:
+          context: ./10-python/ubuntu
+          file: 10-python/ubuntu/Dockerfile
+          platforms: linux/amd64
+          push: false
+          load: true
+          build-args: |
+            BASE_TAG=test
+          tags: edulinq/grader.python-ubuntu:test
+
+      - name: Build - Python - Alpine
+        uses: docker/build-push-action@v6
+        with:
+          context: ./10-python/alpine
+          file: 10-python/alpine/Dockerfile
+          platforms: linux/amd64
+          push: false
+          load: true
+          build-args: |
+            BASE_TAG=test
+          tags: edulinq/grader.python-alpine:test
