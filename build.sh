@@ -5,19 +5,22 @@
 
 readonly THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-readonly BASE_IMAGE_NAME='autograder'
+readonly BASE_IMAGE_NAME='grader'
 readonly IMAGE_REPO='edulinq'
 
 function main() {
     trap exit SIGINT
     set -e
 
-    for dockerfile in $(ls "${THIS_DIR}"/*/Dockerfile | sort) ; do
+    for dockerfile in $(ls "${THIS_DIR}"/*/*/Dockerfile | sort) ; do
         local buildDir=$(dirname "${dockerfile}")
-        local subImageName=$(basename "${buildDir}" | sed 's/^[0-9]\+-//')
+        local os=$(basename "${buildDir}")
+        local subImageName=$(basename $(dirname "${buildDir}") | sed 's/^[0-9]\+-//')
 
-        echo "Building '${BASE_IMAGE_NAME}.${subImageName}' ..."
-        docker build --no-cache --tag "${IMAGE_REPO}/${BASE_IMAGE_NAME}.${subImageName}" --file "${dockerfile}" "${buildDir}" $@
+        local imageName="${IMAGE_REPO}/${BASE_IMAGE_NAME}.${subImageName}-${os}:local"
+
+        echo "Building '${imageName}' ..."
+        docker build --build-arg BASE_TAG=local --tag "${imageName}" --file "${dockerfile}" "${buildDir}" $@
     done
 
     exit 0
