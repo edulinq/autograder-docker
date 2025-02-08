@@ -1,3 +1,8 @@
+This repository has been deprecated.
+See:
+ - [edulinq/autograder-docker-base](https://github.com/edulinq/autograder-docker-base)
+ - [edulinq/autograder-docker-python](https://github.com/edulinq/autograder-docker-python)
+
 # Autograder Docker
 
 Docker images used by the autograder.
